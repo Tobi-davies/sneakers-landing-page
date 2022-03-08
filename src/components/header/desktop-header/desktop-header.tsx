@@ -11,6 +11,7 @@ const NavLink = styled.a`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: var(--dark-grayish-blue);
 
   &:active {
     border-bottom: 2px solid var(--primary-orange-color);
