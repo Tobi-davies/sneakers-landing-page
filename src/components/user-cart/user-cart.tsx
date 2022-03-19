@@ -13,8 +13,8 @@ const CartCount = styled.div`
   top: -2px;
   right: -10px;
   border: 1px solid red;
-  font-size: 8px;
-  padding: 1px 8px;
+  font-size: 6px;
+  padding: 0px 7px;
   background-color: var(--primary-orange-color);
   color: var(--white-color);
   border-radius: 10px;

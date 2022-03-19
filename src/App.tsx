@@ -5,7 +5,7 @@ import SneakersLandingPage from "./pages/landing-page/LandingPage";
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <SneakersLandingPage />
     </div>
   );

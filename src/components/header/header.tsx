@@ -9,7 +9,12 @@ const Header = () => {
     query: `(min-width: ${VIEWPORT_BREAKPOINTS.md}px)`,
   });
 
-  return <>{!isLaptop ? <MobileHeader /> : <DesktopHeader />}</>;
+  return (
+    <>
+      {!isLaptop ? <MobileHeader /> : <DesktopHeader />}
+      {/* {!isLaptop ? <DesktopHeader /> : <DesktopHeader />} */}
+    </>
+  );
 };
 
 export default Header;
