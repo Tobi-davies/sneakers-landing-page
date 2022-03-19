@@ -13,7 +13,7 @@ export default function GlobalStyles() {
           --light-grayish-blue: hsl(223, 64%, 98%);
           --dark-grayish-blue: hsl(219, 9%, 45%);
           --white-color: hsl(0, 0%, 100%);
-          --black-lightbox: hsl(0, 0%, 0%);
+          --black-lightbox: hsl(0, 0%, 0%, 0.7);
         }
 
         *,

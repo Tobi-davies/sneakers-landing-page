@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useMediaQuery } from "react-responsive";
+
 import {
   Pane,
   ListItem,
@@ -13,6 +15,7 @@ import { ReactComponent as HamburgerIcon } from "../../../assets/images/icon-men
 import Cart from "../../../assets/images/icon-cart.svg";
 import Avatar from "../../../assets/images/image-avatar.png";
 import UserCart from "../../user-cart/user-cart";
+import { VIEWPORT_BREAKPOINTS } from "../../../enums";
 
 function MobileHeader() {
   return (
@@ -22,8 +25,9 @@ function MobileHeader() {
       margin="auto"
       justifyContent="space-between"
       alignItems="center"
+      height="10vh"
     >
-      <Pane display="flex">
+      <Pane display="flex" alignItems="center" columnGap={minorScale(3)}>
         {/* <HamburgerIcon /> */}
         <div>
           <img

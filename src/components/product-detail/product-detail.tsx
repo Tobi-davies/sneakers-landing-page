@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "@emotion/styled";
+import { useMediaQuery } from "react-responsive";
 import {
   Pane,
   Paragraph,
@@ -7,12 +8,10 @@ import {
   majorScale,
   minorScale,
   Text,
-  Button,
 } from "evergreen-ui";
 import { ReactComponent as PlusIcon } from "../../assets/images/icon-plus.svg";
 import { ReactComponent as MinusIcon } from "../../assets/images/icon-minus.svg";
-import SneakerBanner4 from "../../assets/images/image-product-4.jpg";
-// import { ReactComponent as Cart } from "../../assets/images/icon-cart.svg";
+import { VIEWPORT_BREAKPOINTS } from "../../enums/index";
 
 const CartButton = styled.button`
   display: flex;
@@ -30,7 +29,11 @@ const AddBtn = styled.button`
   padding: 12px 0;
   font-size: 15px;
   font-family: "Kumbh Sans", sans-serif;
+  cursor: pointer;
+  box-shadow: 0px 8px 15px hsla(26, 100%, 55%, 0.3);
 `;
+
+// const CartCountContext = React.createContext(0);
 
 function ProductDetail() {
   const [count, setCount] = React.useState(0);
@@ -44,8 +47,24 @@ function ProductDetail() {
       setCount(0);
     }
   };
+
+  const isSmallScreen = useMediaQuery({
+    query: `(min-width: ${VIEWPORT_BREAKPOINTS.sm}px)`,
+  });
+
+  const isMediumScreen = useMediaQuery({
+    query: `(min-width: ${VIEWPORT_BREAKPOINTS.md}px)`,
+  });
+
+  const isLargeScreen = useMediaQuery({
+    query: `(min-width: ${VIEWPORT_BREAKPOINTS.lg}px)`,
+  });
   return (
-    <Pane paddingX={majorScale(3)} paddingTop={majorScale(14)}>
+    <Pane
+      paddingX={isMediumScreen ? majorScale(3) : majorScale(1)}
+      paddingTop={isLargeScreen ? majorScale(14) : majorScale(3)}
+      paddingBottom={isLargeScreen ? "" : majorScale(4)}
+    >
       <Heading
         fontSize="0.9rem"
         color="var(--primary-orange-color)"
@@ -56,23 +75,29 @@ function ProductDetail() {
       </Heading>
       <Paragraph
         fontWeight={700}
-        fontSize="3rem"
+        fontSize={isSmallScreen ? "3rem" : "2rem"}
         color="var(--very-vark-blue)"
-        lineHeight="3rem"
+        lineHeight={isSmallScreen ? "3rem" : "1rem"}
+        maxWidth={isSmallScreen ? "500px" : isLargeScreen ? "100%" : "unset"}
       >
         Fall Limited Edition Sneakers
       </Paragraph>
       <Paragraph
         color="var(--dark-grayish-blue)"
-        // marginTop={majorScale(4)}
         className="my-4"
         fontSize="1rem"
+        maxWidth={isSmallScreen ? "600px" : isLargeScreen ? "unset" : "100%"}
       >
         These low-profile sneakers are your perfect casual wear companion.
         Featuring a durable rubber outer sole, they’ll withstand everything the
         weather can offer.
       </Paragraph>
-      <Pane display="flex" flexDirection="column">
+      <Pane
+        display="flex"
+        flexDirection={isSmallScreen ? "column" : "row"}
+        alignItems={isSmallScreen ? "" : "center"}
+        justifyContent={isSmallScreen ? "" : "space-between"}
+      >
         <Pane
           display="flex"
           alignItems="center"
@@ -108,25 +133,29 @@ function ProductDetail() {
       </Pane>
 
       <Pane
-        // border="1px solid red"
         className="mt-4"
-        // display="flex"
-        // justifyContent="space-between"
-        // columnGap={majorScale(4)}
         display="grid"
-        gridTemplateColumns="1fr 2fr"
-        gap={majorScale(3)}
+        gridTemplateColumns={
+          isLargeScreen
+            ? "1fr 2fr"
+            : isMediumScreen
+            ? "1fr 1fr"
+            : isSmallScreen
+            ? "1fr 2fr"
+            : "unset"
+        }
+        gridTemplateRows="1fr"
+        gap={isSmallScreen ? majorScale(3) : majorScale(1)}
+        maxWidth={isSmallScreen ? "500px" : isLargeScreen ? "100%" : "unset"}
       >
         <Pane
-          // className="col-md-4"
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          // backgroundColor="var(--light-grayish-blue)"
-          // backgroundColor="var(--light-grayish-blue)"
           backgroundColor="var(--light-grayish-blue)"
           borderRadius={majorScale(1)}
           paddingX={minorScale(2)}
+          paddingY={12}
         >
           <CartButton onClick={() => decreaseCount()}>
             <MinusIcon />
@@ -138,32 +167,10 @@ function ProductDetail() {
             <PlusIcon />
           </CartButton>
         </Pane>
-        <AddBtn
-        //  className="col-md-8"
-        >
-          Add to cart
-        </AddBtn>
-        {/* <Button
-          className="col-md-7"
-          backgroundColor="var(--primary-orange-color)"
-          color="white"
-          // border="var(--primary-orange-color)"
-          paddingY={minorScale(5)}
-          fontSize="1rem"
-        >
-          Add to cart
-        </Button> */}
+        <AddBtn>Add to cart</AddBtn>
       </Pane>
-
-      {/* <img src={SneakerBanner4} alt="" /> */}
-      {/* <img
-        src="https://images.unsplash.com/photo-1640622842008-1897f26aafe3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-        alt=""
-      /> */}
     </Pane>
   );
 }
 
 export default ProductDetail;
-
-// $125.00 50% $250.00 0 Add to cart

@@ -38,12 +38,16 @@ const NAV_ITEMS = [
 ];
 
 function DesktopHeader() {
+  // const isLaptop = useMediaQuery({
+  //   query: `(min-width: ${VIEWPORT_BREAKPOINTS.md}px)`,
+  // });
+
   return (
     <>
       <Pane
         is="header"
-        width="80%"
-        margin="auto"
+        // width="80%"
+        // margin="auto"
         display="flex"
         alignItems="center"
         justifyContent="space-between"
