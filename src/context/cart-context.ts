@@ -1,5 +1,13 @@
-import * as React from "react";
+// import * as React from "react";
 
-const CartCountContext = React.createContext(0);
+// const CartCountContext = React.createContext<null>(null);
 
-export default CartCountContext;
+// export function cartProvider({children}){
+// return (
+//   <CartCountContext.Provider value ={}>
+//   {children}
+//   </CartCountContext.Provider>
+// )
+// }
+
+// export default CartCountContext;
