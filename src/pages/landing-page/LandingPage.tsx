@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Pane, majorScale, minorScale } from "evergreen-ui";
 import { useMediaQuery } from "react-responsive";
 import Checkout from "../../components/checkout/checkout";
@@ -6,8 +7,12 @@ import ProductDetail from "../../components/product-detail/product-detail";
 import ProductPreview from "../../components/product-preview/product-preview";
 import { VIEWPORT_BREAKPOINTS } from "../../enums/index";
 import Lightbox from "../../feature/lightbox/lightbox";
+import { productDetails } from "../../data/preview-data";
+import { CartCountContext } from "../../context/cart-context";
 
 function SneakersLandingPage() {
+  const { isCheckoutOpen } = React.useContext(CartCountContext);
+
   const isSmallScreen = useMediaQuery({
     query: `(min-width: ${VIEWPORT_BREAKPOINTS.sm}px)`,
   });
@@ -30,19 +35,22 @@ function SneakersLandingPage() {
       >
         {/* <Pane width="80%" margin="auto" position="relative"> */}
 
-        <Pane
-          position="absolute"
-          top={isSmallScreen ? "9vh" : "12vh"}
-          right={isSmallScreen ? "5%" : 0}
-          maxWidth={isSmallScreen ? "270px" : " unset"}
-          width={isSmallScreen ? "100%" : "90%"}
-          left={isSmallScreen ? "unset" : 0}
-          margin={isSmallScreen ? "" : "auto"}
-          zIndex={2}
-          // border="1px solid red"
-        >
-          <Checkout />
-        </Pane>
+        {isCheckoutOpen && (
+          <Pane
+            position="absolute"
+            top={isSmallScreen ? "9vh" : "12vh"}
+            right={isSmallScreen ? 0 : 0}
+            maxWidth={isSmallScreen ? "300px" : " unset"}
+            width={isSmallScreen ? "100%" : "90%"}
+            left={isSmallScreen ? "unset" : 0}
+            margin={isSmallScreen ? "" : "auto"}
+            zIndex={2}
+            // border="1px solid red"
+          >
+            <Checkout />
+          </Pane>
+        )}
+
         {/* </Pane> */}
 
         <Header />

@@ -25,3 +25,32 @@ export const BackgroundPreviewData = [
     imgSrc: SneakerBanner4,
   },
 ];
+
+export const productDetails = {
+  id: 1,
+  name: "Fall Limited Edition Sneakers",
+  description: `These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they’ll withstand everything the
+weather can offer`,
+  currentPrice: 125.0,
+  discount: 50,
+  previousPrice: 250.0,
+  productImage: Sneakerthumbnail1,
+  BackgroundPreviewData: [
+    {
+      productBanner: Sneakerthumbnail1,
+      imgSrc: SneakerBanner1,
+    },
+    {
+      productBanner: Sneakerthumbnail2,
+      imgSrc: SneakerBanner2,
+    },
+    {
+      productBanner: Sneakerthumbnail3,
+      imgSrc: SneakerBanner3,
+    },
+    {
+      productBanner: Sneakerthumbnail4,
+      imgSrc: SneakerBanner4,
+    },
+  ],
+};

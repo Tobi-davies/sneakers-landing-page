@@ -25,7 +25,7 @@ function MobileHeader() {
       margin="auto"
       justifyContent="space-between"
       alignItems="center"
-      height="10vh"
+      height="7vh"
     >
       <Pane display="flex" alignItems="center" columnGap={minorScale(3)}>
         {/* <HamburgerIcon /> */}
