@@ -1,8 +1,17 @@
 import * as React from "react";
 import styled from "@emotion/styled";
-import { Pane, ListItem, UnorderedList, majorScale } from "evergreen-ui";
+import { useMediaQuery } from "react-responsive";
+import {
+  Pane,
+  ListItem,
+  UnorderedList,
+  majorScale,
+  minorScale,
+} from "evergreen-ui";
+import { VIEWPORT_BREAKPOINTS } from "../../../enums";
 import sneakerslogo from "../../../assets/images/logo.svg";
 import UserCart from "../../user-cart/user-cart";
+import harmburger from "../../../assets/images/icon-menu.svg";
 
 const NavLink = styled.a`
   font-weight: 400;
@@ -38,9 +47,9 @@ const NAV_ITEMS = [
 ];
 
 function DesktopHeader() {
-  // const isLaptop = useMediaQuery({
-  //   query: `(min-width: ${VIEWPORT_BREAKPOINTS.md}px)`,
-  // });
+  const isLaptop = useMediaQuery({
+    query: `(min-width: ${VIEWPORT_BREAKPOINTS.md}px)`,
+  });
 
   return (
     <>
@@ -56,8 +65,20 @@ function DesktopHeader() {
         // paddingY={majorScale(2)}
         borderBottom="1px solid var( --light-grayish-blue)"
         height="10vh"
+        width={isLaptop ? "100%" : "90%"}
+        margin={isLaptop ? "unset" : "auto"}
       >
         <Pane display="flex" alignItems="center" height="100%">
+          {!isLaptop && (
+            <Pane marginRight={minorScale(3)}>
+              <img
+                src={harmburger}
+                alt="Ticketsir logo"
+                style={{ verticalAlign: "middle" }}
+              />
+            </Pane>
+          )}
+
           <div>
             <img
               src={sneakerslogo}
@@ -66,34 +87,35 @@ function DesktopHeader() {
             />
           </div>
 
-          <Pane
-            is="nav"
-            marginLeft={majorScale(5)}
-            display="flex"
-            alignItems="center"
-            fontSize="1em"
-            // border="1px solid red"
-            height="inherit"
-          >
-            <UnorderedList
+          {isLaptop && (
+            <Pane
+              is="nav"
+              marginLeft={majorScale(5)}
               display="flex"
-              columnGap={majorScale(3)}
               alignItems="center"
+              fontSize="1em"
+              // border="1px solid red"
               height="inherit"
             >
-              {NAV_ITEMS.map((navItem, i) => (
-                <ListItem
-                  key={i}
-                  fontSize="inherit"
-                  // border="1px solid green"
-                  //  paddingY={majorScale(2)}
-                  height="inherit"
-                  // display="flex"
-                  // alignItems="center"
-                  // justifyContent="center"
-                  // marginY="auto"
-                >
-                  {/* <NavLink
+              <UnorderedList
+                display="flex"
+                columnGap={majorScale(3)}
+                alignItems="center"
+                height="inherit"
+              >
+                {NAV_ITEMS.map((navItem, i) => (
+                  <ListItem
+                    key={i}
+                    fontSize="inherit"
+                    // border="1px solid green"
+                    //  paddingY={majorScale(2)}
+                    height="inherit"
+                    // display="flex"
+                    // alignItems="center"
+                    // justifyContent="center"
+                    // marginY="auto"
+                  >
+                    {/* <NavLink
                  exact={navItem.exact}
                  to={
                    navItem.path
@@ -108,11 +130,12 @@ function DesktopHeader() {
                 >
                   {navItem.title}
                 </NavLink> */}
-                  <NavLink>{navItem.title}</NavLink>
-                </ListItem>
-              ))}
-            </UnorderedList>
-          </Pane>
+                    <NavLink>{navItem.title}</NavLink>
+                  </ListItem>
+                ))}
+              </UnorderedList>
+            </Pane>
+          )}
         </Pane>
         {/* <Pane> */}
         <UserCart />

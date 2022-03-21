@@ -6,6 +6,14 @@ import { BackgroundPreviewData } from "../../data/preview-data";
 import { VIEWPORT_BREAKPOINTS } from "../../enums/index";
 import Lightbox from "../../feature/lightbox/lightbox";
 
+interface PreviewProps {
+  name: string;
+  description: string;
+  currentPrice: number;
+  discount: number;
+  previousPrice: number;
+}
+
 const ProductImage = styled(Pane)`
   background: ${(props) => `url('${props.image}') no-repeat center`};
   background-size: cover;
@@ -32,16 +40,8 @@ function ProductPreview() {
     query: `(min-width: ${VIEWPORT_BREAKPOINTS.lg}px)`,
   });
 
-  // const isSmallScreen = useMediaQuery({
-  //   query: `(min-width: ${VIEWPORT_BREAKPOINTS.sm}px)`,
-  // });
-
   return (
-    <Pane
-      paddingX={isSmallScreen && majorScale(4)}
-
-      // border="1px solid purple"
-    >
+    <Pane paddingX={isSmallScreen && majorScale(4)}>
       <Pane
         height={isMediumScreen ? "60vh" : "50vh"}
         width={
@@ -132,3 +132,11 @@ function ProductPreview() {
 }
 
 export default ProductPreview;
+
+// productDetails: {
+//   name: string;
+//   description: string;
+//   currentPrice: number;
+//   discount: number;
+//   previousPrice: number;
+// }

@@ -3,9 +3,11 @@ import styled from "@emotion/styled";
 import { Pane, majorScale } from "evergreen-ui";
 import CartIcon from "../../assets/images/icon-cart.svg";
 import Avatar from "../../assets/images/image-avatar.png";
+import { CartCountContext } from "../../context/cart-context";
 
 const Cart = styled.div`
   position: relative;
+  cursor: pointer;
 `;
 
 const CartCount = styled.div`
@@ -21,11 +23,13 @@ const CartCount = styled.div`
 `;
 
 function UserCart() {
+  const { itemCount, toggleCheckout } = React.useContext(CartCountContext);
+
   return (
     <Pane display="flex" alignItems="center">
-      <Cart>
+      <Cart onClick={toggleCheckout}>
         <img src={CartIcon} alt="Menu" style={{ verticalAlign: "middle" }} />
-        <CartCount>1</CartCount>
+        <CartCount>{itemCount}</CartCount>
       </Cart>
 
       <Pane
@@ -36,6 +40,7 @@ function UserCart() {
         display="flex"
         alignItems="center"
         marginLeft={majorScale(4)}
+        cursor="pointer"
       >
         <img
           src={Avatar}

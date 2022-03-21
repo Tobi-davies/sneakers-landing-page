@@ -12,6 +12,8 @@ import {
 import { ReactComponent as PlusIcon } from "../../assets/images/icon-plus.svg";
 import { ReactComponent as MinusIcon } from "../../assets/images/icon-minus.svg";
 import { VIEWPORT_BREAKPOINTS } from "../../enums/index";
+import { productDetails } from "../../data/preview-data";
+import { CartCountContext } from "../../context/cart-context";
 
 const CartButton = styled.button`
   display: flex;
@@ -33,9 +35,14 @@ const AddBtn = styled.button`
   box-shadow: 0px 8px 15px hsla(26, 100%, 55%, 0.3);
 `;
 
-// const CartCountContext = React.createContext(0);
-
 function ProductDetail() {
+  const {
+    itemCount,
+    updateItemCount,
+    updateCart,
+    cartItems,
+  } = React.useContext(CartCountContext);
+
   const [count, setCount] = React.useState(0);
   const increaseCount = () => {
     setCount((prev) => prev + 1);
@@ -47,6 +54,20 @@ function ProductDetail() {
       setCount(0);
     }
   };
+
+  const {
+    id,
+    name,
+    description,
+    currentPrice,
+    discount,
+    previousPrice,
+    productImage,
+  } = productDetails;
+
+  React.useEffect(() => {
+    updateItemCount(count);
+  }, [count]);
 
   const isSmallScreen = useMediaQuery({
     query: `(min-width: ${VIEWPORT_BREAKPOINTS.sm}px)`,
@@ -77,10 +98,10 @@ function ProductDetail() {
         fontWeight={700}
         fontSize={isSmallScreen ? "3rem" : "2rem"}
         color="var(--very-vark-blue)"
-        lineHeight={isSmallScreen ? "3rem" : "1rem"}
+        lineHeight={isSmallScreen ? "3rem" : 1}
         maxWidth={isSmallScreen ? "500px" : isLargeScreen ? "100%" : "unset"}
       >
-        Fall Limited Edition Sneakers
+        {name}
       </Paragraph>
       <Paragraph
         color="var(--dark-grayish-blue)"
@@ -88,9 +109,7 @@ function ProductDetail() {
         fontSize="1rem"
         maxWidth={isSmallScreen ? "600px" : isLargeScreen ? "unset" : "100%"}
       >
-        These low-profile sneakers are your perfect casual wear companion.
-        Featuring a durable rubber outer sole, they’ll withstand everything the
-        weather can offer.
+        {description}
       </Paragraph>
       <Pane
         display="flex"
@@ -109,7 +128,7 @@ function ProductDetail() {
             fontSize="1.7rem"
             color="var(--very-vark-blue)"
           >
-            $125.00
+            ${currentPrice.toFixed(2)}
           </Text>
           <Text
             fontWeight={700}
@@ -120,7 +139,7 @@ function ProductDetail() {
             paddingX={minorScale(2)}
             borderRadius={minorScale(2)}
           >
-            50%
+            {discount}%
           </Text>
         </Pane>
         <Pane
@@ -128,7 +147,7 @@ function ProductDetail() {
           color="var(--grayish-blue)"
           textDecoration="line-through"
         >
-          $250.00
+          ${previousPrice.toFixed(2)}
         </Pane>
       </Pane>
 
@@ -157,17 +176,39 @@ function ProductDetail() {
           paddingX={minorScale(2)}
           paddingY={12}
         >
-          <CartButton onClick={() => decreaseCount()}>
+          <CartButton
+            onClick={() => {
+              decreaseCount();
+            }}
+          >
             <MinusIcon />
           </CartButton>
           <Text color="var(--very-vark-blue)" fontWeight={700}>
             {count}
           </Text>
-          <CartButton onClick={() => increaseCount()}>
+          <CartButton
+            onClick={() => {
+              increaseCount();
+            }}
+          >
             <PlusIcon />
           </CartButton>
         </Pane>
-        <AddBtn>Add to cart</AddBtn>
+
+        <AddBtn
+          onClick={() =>
+            updateCart({
+              id,
+              name,
+              price: currentPrice,
+              itemCount,
+              img: productImage,
+            })
+          }
+          disabled={count > 0 ? false : true}
+        >
+          Add to cart
+        </AddBtn>
       </Pane>
     </Pane>
   );
