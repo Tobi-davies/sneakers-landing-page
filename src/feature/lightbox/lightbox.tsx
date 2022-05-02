@@ -48,12 +48,16 @@ export const OptionsOverlay = styled(Pane)`
 //   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 // };
 
-type ChildProps = {
-  children: React.ReactNode;
-};
+// interface ChildProps<T> {
+//   children?: ((props: T) => React.ReactNode) | React.ReactNode;
+// }
 
-function Lightbox(props: ChildProps) {
-  const [isLightboxOpen, setIsLightboxOpen] = React.useState(false);
+interface ChildProps {
+  children: React.ReactNode;
+}
+
+function Lightbox() {
+  const [isLightboxOpen, setIsLightboxOpen] = React.useState(true);
 
   const [state, setState] = React.useState({
     activeSlide: 0,
@@ -97,137 +101,139 @@ function Lightbox(props: ChildProps) {
 
   return (
     <>
-      {/* {props.children({ handleClick: () => setIsLightboxOpen(true) })} */}
+      {/* {children({ handleClick: () => setIsLightboxOpen(true) })} */}
 
-      <Pane
-        position="absolute"
-        height="100vh"
-        width="100vw"
-        overflow="hidden"
-        zIndex={3}
-        backgroundColor="var(--black-lightbox)"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
+      {isLightboxOpen && (
         <Pane
-          color="red"
-          maxWidth="400px"
-          overflowX="hidden"
-          position="relative"
+          position="absolute"
+          height="100vh"
+          width="100vw"
+          overflow="hidden"
+          zIndex={3}
+          backgroundColor="var(--black-lightbox)"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
         >
           <Pane
-            display="flex"
-            alignItems="flex-end"
-            paddingBottom={minorScale(2)}
-          >
-            <CloseIcon
-              style={{
-                marginLeft: "auto",
-                cursor: "pointer",
-              }}
-              onClick={handleClose}
-            />
-          </Pane>
-
-          <Pane
-            backgroundColor="white"
-            paddingX="12px"
-            paddingY="10px"
-            position="absolute"
-            top="40%"
-            borderRadius="50%"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            cursor="pointer"
-            zIndex={7}
-          >
-            <PreviousIcon onClick={prevSlide} />
-          </Pane>
-
-          <Pane
-            backgroundColor="white"
-            paddingX="12px"
-            paddingY="10px"
-            position="absolute"
-            top="40%"
-            right={0}
-            borderRadius="50%"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            cursor="pointer"
-            zIndex={7}
-          >
-            <NextIcon onClick={nextSlide} />
-          </Pane>
-
-          <SlideContainer
-            height="60vh"
-            display="flex"
+            color="red"
+            maxWidth="400px"
+            overflowX="hidden"
             position="relative"
-            zIndex={5}
-            translatevalue={translate}
-            transit={transition}
-            width={slideWidth * BackgroundPreviewData.length}
           >
-            {BackgroundPreviewData.map((slide, i) => {
-              return (
-                <Pane
-                  key={i}
-                  height="100%"
-                  // width="100%"
-                  width="400px"
-                  overflowX="hidden"
-                >
-                  <Pane
-                    // height="100%"
-                    height="60vh"
-                    width="400px"
-                    backgroundImage={`url("${slide.imgSrc}")`}
-                    backgroundRepeat="no-repeat"
-                    backgroundPosition="center"
-                    backgroundSize="cover"
-                    borderRadius="20px"
-                    position="relative"
-                  ></Pane>
-                </Pane>
-              );
-            })}
-          </SlideContainer>
+            <Pane
+              display="flex"
+              alignItems="flex-end"
+              paddingBottom={minorScale(2)}
+            >
+              <CloseIcon
+                style={{
+                  marginLeft: "auto",
+                  cursor: "pointer",
+                }}
+                onClick={handleClose}
+              />
+            </Pane>
 
-          <Pane className="row mt-3" paddingX={majorScale(3)}>
-            {BackgroundPreviewData.map((option, i) => {
-              return (
-                <Pane
-                  key={i}
-                  height="60px"
-                  width="30px"
-                  className="col-3"
-                  borderRadius="7px"
-                >
-                  <OptionsOverlay
-                    width="100%"
+            <Pane
+              backgroundColor="white"
+              paddingX="12px"
+              paddingY="10px"
+              position="absolute"
+              top="40%"
+              borderRadius="50%"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              cursor="pointer"
+              zIndex={7}
+            >
+              <PreviousIcon onClick={prevSlide} />
+            </Pane>
+
+            <Pane
+              backgroundColor="white"
+              paddingX="12px"
+              paddingY="10px"
+              position="absolute"
+              top="40%"
+              right={0}
+              borderRadius="50%"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              cursor="pointer"
+              zIndex={7}
+            >
+              <NextIcon onClick={nextSlide} />
+            </Pane>
+
+            <SlideContainer
+              height="60vh"
+              display="flex"
+              position="relative"
+              zIndex={5}
+              translatevalue={translate}
+              transit={transition}
+              width={slideWidth * BackgroundPreviewData.length}
+            >
+              {BackgroundPreviewData.map((slide, i) => {
+                return (
+                  <Pane
+                    key={i}
                     height="100%"
-                    backgroundImage={`url("${option.productBanner}")`}
-                    backgroundRepeat="no-repeat"
-                    backgroundPosition="center"
-                    backgroundSize="cover"
+                    // width="100%"
+                    width="400px"
+                    overflowX="hidden"
+                  >
+                    <Pane
+                      // height="100%"
+                      height="60vh"
+                      width="400px"
+                      backgroundImage={`url("${slide.imgSrc}")`}
+                      backgroundRepeat="no-repeat"
+                      backgroundPosition="center"
+                      backgroundSize="cover"
+                      borderRadius="20px"
+                      position="relative"
+                    ></Pane>
+                  </Pane>
+                );
+              })}
+            </SlideContainer>
+
+            <Pane className="row mt-3" paddingX={majorScale(3)}>
+              {BackgroundPreviewData.map((option, i) => {
+                return (
+                  <Pane
+                    key={i}
+                    height="60px"
+                    width="30px"
+                    className="col-3"
                     borderRadius="7px"
-                    border={
-                      activeSlide === i
-                        ? "2px solid var(--primary-orange-color)"
-                        : "unset"
-                    }
-                    setOverlay={activeSlide === i ? true : false}
-                  ></OptionsOverlay>
-                </Pane>
-              );
-            })}
+                  >
+                    <OptionsOverlay
+                      width="100%"
+                      height="100%"
+                      backgroundImage={`url("${option.productBanner}")`}
+                      backgroundRepeat="no-repeat"
+                      backgroundPosition="center"
+                      backgroundSize="cover"
+                      borderRadius="7px"
+                      border={
+                        activeSlide === i
+                          ? "2px solid var(--primary-orange-color)"
+                          : "unset"
+                      }
+                      setOverlay={activeSlide === i ? true : false}
+                    ></OptionsOverlay>
+                  </Pane>
+                );
+              })}
+            </Pane>
           </Pane>
         </Pane>
-      </Pane>
+      )}
     </>
   );
 }

@@ -43,7 +43,7 @@ function ProductDetail() {
     cartItems,
   } = React.useContext(CartCountContext);
 
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(1);
   const increaseCount = () => {
     setCount((prev) => prev + 1);
   };
@@ -65,9 +65,9 @@ function ProductDetail() {
     productImage,
   } = productDetails;
 
-  React.useEffect(() => {
-    updateItemCount(count);
-  }, [count]);
+  // React.useEffect(() => {
+  //   updateItemCount(count);
+  // }, [count]);
 
   const isSmallScreen = useMediaQuery({
     query: `(min-width: ${VIEWPORT_BREAKPOINTS.sm}px)`,
@@ -196,15 +196,16 @@ function ProductDetail() {
         </Pane>
 
         <AddBtn
-          onClick={() =>
+          onClick={() => {
             updateCart({
               id,
               name,
               price: currentPrice,
-              itemCount,
+              itemCount: count,
               img: productImage,
-            })
-          }
+            });
+            updateItemCount(count);
+          }}
           disabled={count > 0 ? false : true}
         >
           Add to cart
