@@ -22,18 +22,17 @@ const CheckoutBtn = styled.button`
 `;
 
 function Checkout() {
-  const { cartItems, deleteItem } = React.useContext(CartCountContext);
+  const { cartItems, deleteItem, updateItemCount } = React.useContext(
+    CartCountContext
+  );
 
-  const isSmallScreen = useMediaQuery({
-    query: `(min-width: ${VIEWPORT_BREAKPOINTS.sm}px)`,
-  });
-
-  // console.log(cartItems[0].img);
+  // const isSmallScreen = useMediaQuery({
+  //   query: `(min-width: ${VIEWPORT_BREAKPOINTS.sm}px)`,
+  // });
 
   return (
     <Pane
       backgroundColor="white"
-      // border="1px solid rgba(0,0,0, 0.5)"
       boxShadow="0 3px 3px 3px rgba(0,0,0, 0.2)"
       borderRadius="8px"
     >
@@ -49,16 +48,11 @@ function Checkout() {
           <>
             {cartItems.map((cartItem, i) => {
               return (
-                <Pane
-                  key={i}
-                  display="flex"
-                  alignItems="center"
-                  // justifyContent="space-between"
-                >
+                <Pane key={i} display="flex" alignItems="center">
                   <Pane height={40} width={40}>
                     <img
                       src={cartItem.img}
-                      // alt="product banner"
+                      alt="product banner"
                       style={{
                         maxWidth: "100%",
                         height: "auto",
@@ -75,7 +69,10 @@ function Checkout() {
                   </Pane>
                   <DeleteIcon
                     cursor="pointer"
-                    onClick={() => deleteItem(cartItem.id)}
+                    onClick={() => {
+                      deleteItem(cartItem.id);
+                      updateItemCount(0);
+                    }}
                     style={{
                       marginLeft: "auto",
                     }}
@@ -84,7 +81,6 @@ function Checkout() {
               );
             })}
             <CheckoutBtn>Checkout</CheckoutBtn>
-            {/* <Pane>klll</Pane> */}
           </>
         ) : (
           <Paragraph
@@ -97,10 +93,6 @@ function Checkout() {
             Your cart is empty
           </Paragraph>
         )}
-
-        {/* <Pane width="80%" margin="auto">
-        <StyledBtn>Checkout</StyledBtn>
-      </Pane> */}
       </Pane>
     </Pane>
   );

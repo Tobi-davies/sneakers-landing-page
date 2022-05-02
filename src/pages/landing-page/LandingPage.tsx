@@ -25,6 +25,8 @@ function SneakersLandingPage() {
       {/* Lightbox Display */}
       {/* <Lightbox /> */}
 
+      {isMediumScreen && <Lightbox />}
+
       <Pane
         position="relative"
         border="1px solid red"
@@ -33,8 +35,6 @@ function SneakersLandingPage() {
         margin="auto"
         paddingX={isSmallScreen ? "25px" : ""}
       >
-        {/* <Pane width="80%" margin="auto" position="relative"> */}
-
         {isCheckoutOpen && (
           <Pane
             position="absolute"
@@ -45,34 +45,30 @@ function SneakersLandingPage() {
             left={isSmallScreen ? "unset" : 0}
             margin={isSmallScreen ? "" : "auto"}
             zIndex={2}
-            // border="1px solid red"
           >
             <Checkout />
           </Pane>
         )}
 
-        {/* </Pane> */}
-
         <Header />
 
         <Pane
-          // className="row"
           display="flex"
           flexWrap="wrap"
-          // flexDirection={ismallScreen ? "row" : "column"}
-          // width="80%"
-          // margin="auto"
           marginTop={isMediumScreen ? majorScale(5) : minorScale(1)}
         >
           <Pane
             className={isSmallScreen ? "col-12 col-lg-6" : ""}
             width={isSmallScreen ? "" : "100%"}
-            border="1px solid blue"
+            // border="1px solid blue"
           >
             <ProductPreview />
           </Pane>
 
-          <Pane className="col-12 col-lg-6" border="1px solid green">
+          <Pane
+            className="col-12 col-lg-6"
+            // border="1px solid green"
+          >
             <ProductDetail />
           </Pane>
         </Pane>

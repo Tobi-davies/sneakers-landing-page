@@ -57,19 +57,12 @@ const Header = () => {
 
   return (
     <>
-      {/* {!isLaptop ? <MobileHeader /> : <DesktopHeader />} */}
-      {/* {!isLaptop ? <DesktopHeader /> : <DesktopHeader />} */}
-
       <Pane
         is="header"
-        // width="80%"
-        // margin="auto"
         display="flex"
         alignItems="center"
         justifyContent="space-between"
         fontSize="0.9rem"
-        // border="1px solid red"
-        // paddingY={majorScale(2)}
         borderBottom="1px solid var( --light-grayish-blue)"
         height={isLaptop ? "10vh" : "7vh"}
         width={isLaptop ? "100%" : "90%"}
@@ -101,7 +94,6 @@ const Header = () => {
               display="flex"
               alignItems="center"
               fontSize="1em"
-              // border="1px solid red"
               height="inherit"
             >
               <UnorderedList
